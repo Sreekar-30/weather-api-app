@@ -1,1 +1,38 @@
 
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weather App</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="card">
+    <h1>Weather App</h1>
+    <form method="post">
+      <input name="city" placeholder="Enter city or city,country (e.g. Bengaluru,IN)" required />
+      <button type="submit">Get Weather</button>
+    </form>
+
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+
+    {% if weather %}
+      <div class="result">
+        <h2>{{ weather.city }}, {{ weather.country }}</h2>
+        <p><strong>{{ weather.temp_c }} °C</strong> (feels like {{ weather.feels_like_c }} °C)</p>
+        <p>{{ weather.description }}</p>
+        <p>Humidity: {{ weather.humidity }}% • Pressure: {{ weather.pressure }} hPa</p>
+        <p>Wind: {{ weather.wind_m_s }} m/s</p>
+        {% if cached %}<p class="cached">(served from cache)</p>{% endif %}
+      </div>
+    {% endif %}
+
+    <footer>
+      <small>Uses OpenWeatherMap API. Set <code>OPENWEATHER_API_KEY</code> in environment.</small>
+    </footer>
+  </div>
+</body>
+</html>
